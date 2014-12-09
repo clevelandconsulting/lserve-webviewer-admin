@@ -1,0 +1,67 @@
+<ol class='breadcrumb'>
+		<li><a href='' ng-click='accounts.location.path("/")'>Home</a></li>
+		<li class='active'>Accounts</li>
+	</ol>
+<h1>Accounts</h1>
+<alert ng-show='message!==undefined' type='{{ message.level }}' close="accounts.closeAlert()">{{ message.msg }}</alert>
+<table class='table table-striped'>
+	 <thead>
+		 <tr><th></th><th>Email</th><th>Company</th><th>User Count</th><th>License</th><th>Active</th><th>Suspended</th><th></th></tr>
+	 </thead>
+	 <tbody>
+   <tr ng-repeat='(i,p) in accounts.accounts'>
+	   <td>
+		   <button type="button" class="btn btn-info" aria-label="Left Align" ng-click='accounts.location.path("accounts/" + p.key)'>
+				  <span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
+				</button>
+	   </td>
+		  <td>
+  	  <input type='email' ng-model='p.properties.email' ng-change='accounts.changed(p)' class='form-control' >
+		  </td>
+		  <td>
+  	  <input type='text' ng-model='p.properties.company' ng-change='accounts.changed(p)' class='form-control' >
+		  </td>
+		  <td>
+  	  <input type='Number' ng-model='p.properties.userCount' ng-change='accounts.changed(p)' class='form-control' >
+		  </td>
+		  <td>
+			  <div ng-show='p.properties.license'>
+  	   <input type='text' ng-model='p.properties.license.key' class='form-control' readonly='readonly' >
+			  </div>
+		  </td>
+		  <td>
+			  <div ng-show='p.properties.license' class='form-group'>
+  	   <input type='checkbox' ng-model='p.properties.license.active' ng-change='accounts.changed(p)' >
+			  </div>
+		  </td>
+		  <td>
+			  <div ng-show='p.properties.license' class='form-group'>
+				  <input type='checkbox' ng-model='p.properties.license.suspended' ng-change='accounts.changed(p)' >
+			  </div>
+		  </td>
+		  <td>
+			  <button ng-click='accounts.update(p)' class='btn btn-xs btn-primary' ng-disabled='!p.changed'><span class='glyphicon glyphicon-save'></span>&nbsp;Update</button>
+			  <button ng-click='accounts.remove(p,i)' class='btn btn-xs btn-danger' ng-hide='p.properties.license.key?true:false'><span class='glyphicon glyphicon-trash'></span>&nbsp;Remove</button>
+		  </td>
+   </tr>
+	 </tbody>
+	 <tfoot>
+		 <tr>
+			 <td></td>
+			 <td>
+  	  <input type='email' ng-model='newaccount.properties.email' class='form-control' ng-change='accounts.newaccount(newaccount)' >
+		  </td>
+		  <td>
+  	  <input type='text' ng-model='newaccount.properties.company' class='form-control' ng-change='accounts.newaccount(newaccount)' >
+		  </td>
+		  <td>
+  	  <input type='Number' ng-model='newaccount.properties.userCount' class='form-control' ng-change='accounts.newaccount(newaccount)' >
+		  </td>
+		  <td colspan="4">
+			  <button ng-click='accounts.add(newaccount)' class='btn btn-primary' ng-disabled='!newaccount.ready'><span class='glyphicon glyphicon-plus'></span>&nbsp;Add</button>
+		  </td>
+		 </tr>
+	 </tfoot>
+</table>
+ </div>
+</div>

@@ -1,0 +1,82 @@
+<div ng-show='account.account !=null'>
+	<ol class='breadcrumb'>
+		<li><a href='' ng-click='account.location.path("/")'>Home</a></li>
+		<li><a href='' ng-click='account.location.path("/accounts")'>Accounts</a></li>
+		<li class='active'><span ng-bind='account.account.properties.email'></span></li>
+	</ol>
+	<h1>Account</h1>
+	<alert ng-show='message!==undefined' type='{{ message.level }}' close="account.closeAlert()">{{ message.msg }}</div>
+	
+	<form>
+		<div class='row'>
+			<div class='col-md-6'>
+			 <div class='form-group'>
+				  <label for='email'>Email</label>
+				  <input class='form-control' type='email' name='email' id='email' placeholder='Email' ng-model='account.account.properties.email' ng-change='account.changed(account.account)' />
+			 </div>
+			 <div class='form-group'>
+				  <label for='company'>Company</label>
+				  <input class='form-control' type='text' name='company' id='company' placeholder='Company' ng-model='account.account.properties.company' ng-change='account.changed(account.account)'/>
+			 </div>
+			 <div class='form-group'>
+				  <label for='userCount'>Users</label>
+				  <input class='form-control' type='text' name='userCount' id='userCount' placeholder='Users' ng-model='account.account.properties.userCount' ng-change='account.changed(account.account)'/>
+			 </div>
+			</div>
+			<div class='col-md-6'>
+				<div class='form-group' ng-show='account.account.properties.license'>
+					<label for='key'>License</label>
+ 	   <input type='text' id='key' name='key' ng-model='account.account.properties.license.key' class='form-control' readonly='readonly' >
+		  </div>
+		  <div class='form-group' ng-show='account.account.properties.license' class='form-group'>
+			  <label for='active'>Active</label>
+ 	   <input type='checkbox' id='active' name='active' ng-model='account.account.properties.license.active' ng-change='account.changed(account.account)' >
+		  </div>
+		  <div class='form-group' ng-show='account.account.properties.license' class='form-group'>
+			  <label for='suspended'>Suspended</label>
+			  <input type='checkbox' id='suspended' name='suspended' ng-model='account.account.properties.license.suspended' ng-change='account.changed(account.account)' >
+		  </div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-md-12'>
+				<button ng-click='account.update(account.account)' class='btn btn-primary' ng-disabled='!account.account.changed'><span class='glyphicon glyphicon-save'></span>&nbsp;Update Account</button>
+				<button ng-click='account.remove()' class='btn btn-danger' ng-disabled='account.account.properties.license.key?true:false'><span class='glyphicon glyphicon-trash'></span>&nbsp;Remove Account</button>
+			</div>
+		</div>
+	</form>
+	
+	<h2>Payments</h2>
+ <table class='table table-striped'>
+	 <thead>
+		 <tr><th>Date</th><th>Amount</th><th></th></tr>
+	 </thead>
+	 <tbody>
+   <tr ng-repeat='(i,p) in account.payments'>
+		  <td>
+  	  <input type='date' ng-model='p.properties.date' ng-change='account.changed(p)' class='form-control' >
+		  </td>
+		  <td>
+  	  <input type='currency' ng-model='p.properties.amount' ng-change='account.changed(p)' class='form-control' >
+		  </td>
+		  <td>
+			  <button ng-click='account.updatePayment(p)' class='btn btn-sm btn-primary' ng-disabled='!p.changed'><span class='glyphicon glyphicon-save'></span>&nbsp;Update</button>
+			  <button ng-click='account.removePayment(p,i)' class='btn btn-sm btn-danger'><span class='glyphicon glyphicon-trash'></span>&nbsp;Remove Payment</button>
+		  </td>
+   </tr>
+	 </tbody>
+	 <tfoot>
+		 <tr>
+			 <td>
+  	  <input type='date' ng-model='newpayment.properties.date' class='form-control' ng-change='account.newpayment(newpayment)' >
+		  </td>
+		  <td>
+  	  <input type='currency' ng-model='newpayment.properties.amount' class='form-control' ng-change='account.newpayment(newpayment)' >
+		  </td>
+		  <td>
+			  <button ng-click='account.addPayment(newpayment)' class='btn btn-primary' ng-disabled='!newpayment.ready'><span class='glyphicon glyphicon-plus'></span>&nbsp;Add</button>
+		  </td>
+		 </tr>
+	 </tfoot>
+ </table>
+</div>

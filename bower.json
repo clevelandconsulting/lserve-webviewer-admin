@@ -1,0 +1,30 @@
+{
+  "name": "cci-licensing-webviewer-admin",
+  "version": "0.0.1",
+  "homepage": "https://github.com/clevelandconsulting/cci-api",
+  "authors": [
+    "Kevin Vile <kevin@clevelandconsulting.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "/vendor/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.2.24",
+    "bootstrap-sass-official": "~3.3.1",
+    "autofill-event": "~1.0.0",
+    "angular-bootstrap": "~0.11.2",
+    "angular-resource": "1.2.24",
+    "angular-sanitize": "1.2.24",
+    "angular-route": "1.2.24"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.13"
+  }
+}

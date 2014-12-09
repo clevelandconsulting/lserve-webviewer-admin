@@ -1,0 +1,37 @@
+<ol class='breadcrumb'>
+		<li><a href='' ng-click='users.location.path("/")'>Home</a></li>
+		<li class='active'>Users</li>
+	</ol>
+<h1>Admin Users</h1>
+<alert ng-show='message!==undefined' type='{{ message.level }}' close="users.closeAlert()">{{ message.msg }}</alert>
+<table class='table table-striped'>
+	 <thead>
+		 <tr><th>Email</th><th colspan='2'></th></tr>
+	 </thead>
+	 <tbody>
+   <tr ng-repeat='(i,u) in users.users'>
+		  <td colspan='2'>
+  	  <input type='email' ng-model='u.properties.email' ng-change='users.changed(u)' class='form-control' >
+		  </td>
+		  <td>
+			  <button ng-click='users.update(u)' class='btn btn-sm btn-primary' ng-disabled='!u.changed'>Update</button>
+			  <button ng-click='users.remove(u,i)' class='btn btn-sm btn-danger'>Remove </button>
+		  </td>
+   </tr>
+	 </tbody>
+	 <tfoot>
+		 <tr>
+			 <td>
+  	  <input type='email' ng-model='newuser.properties.email' class='form-control' ng-change='users.newuser(newuser)' placeholder='New User Email'>
+		  </td>
+		  <td>
+  	  <input type='password' ng-model='newuser.properties.password' class='form-control' ng-change='users.newuser(newuser)' placeholder='New User Password' >
+		  </td>
+		  <td>
+			  <button ng-click='users.add(newuser)' class='btn btn-primary' ng-disabled='!newuser.ready'>Add</button>
+		  </td>
+		 </tr>
+	 </tfoot>
+</table>
+ </div>
+</div>
